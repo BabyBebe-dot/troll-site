@@ -144,29 +144,34 @@ function renderLevel(){
             };
         break;
 
+        
+
+        
+
         case 6:
 
-            text.innerText=
-            "Håll musen över knappen.";
+    text.innerText =
+    "Klicka på knappen 3 gånger.";
 
-            let move=document.createElement("button");
-            move.innerText="Fånga mig";
+    let count = 0;
 
-            move.onmouseover=()=>{
-                move.style.position="absolute";
-                move.style.left=
-                Math.random()*(window.innerWidth-150)+"px";
-                move.style.top=
-                Math.random()*(window.innerHeight-80)+"px";
-            };
+    let move = document.createElement("button");
+    move.innerText = "Klicka mig";
 
-            move.onclick=()=>{
-                nextBtn.classList.remove("hidden");
-            };
+    move.onclick = () => {
+        count++;
 
-            content.appendChild(move);
+        move.innerText =
+        "Klick: " + count + "/3";
 
-        break;
+        if(count >= 3){
+            nextBtn.classList.remove("hidden");
+        }
+    };
+
+    content.appendChild(move);
+
+break;
 
         case 7:
             text.innerText=
