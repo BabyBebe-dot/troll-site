@@ -147,32 +147,15 @@ function renderLevel(){
         
 
         
+ount + "/3";
 
         case 6:
-
-    text.innerText =
-    "Klicka på knappen 3 gånger.";
-
-    let count = 0;
-
-    let move = document.createElement("button");
-    move.innerText = "Klicka mig";
-
-    move.onclick = () => {
-        count++;
-
-        move.innerText =
-        "Klick: " + count + "/3";
-
-        if(count >= 3){
-            nextBtn.classList.remove("hidden");
-        }
-    };
-
-    content.appendChild(move);
-
+    text.innerText = "Klicka på knappen.";
+    let btn = document.createElement("button");
+    btn.innerText = "Nästa";
+    btn.onclick = () => nextBtn.classList.remove("hidden");
+    content.appendChild(btn);
 break;
-
         case 7:
             text.innerText=
             "Vad är 12 × 12 ?";
