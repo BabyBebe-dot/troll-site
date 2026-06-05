@@ -1,18 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="sv">
 <head>
-    <title>Superviktig Hemsida</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gratis Pengar!!!</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(45deg, #ff00ff, #00ffff);
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+button {
+    font-size: 20px;
+    padding: 15px 30px;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+}
+</style>
 </head>
+
 <body>
-    <h1>Välkommen!</h1>
-    <p>Klicka på knappen för en viktig uppdatering.</p>
 
-    <button onclick="troll()">Klicka här</button>
+<div class="box">
+    <h1>🎉 Grattis! 🎉</h1>
+    <p>Du har blivit utvald att få 1 000 000 kr!</p>
 
-    <script>
-        function troll() {
-            alert("Du blev trollad 😄");
-        }
-    </script>
+    <button id="btn">Hämta pengarna</button>
+</div>
+
+<script>
+const btn = document.getElementById("btn");
+
+btn.addEventListener("mouseover", () => {
+    btn.style.position = "absolute";
+    btn.style.left = Math.random() * (window.innerWidth - 150) + "px";
+    btn.style.top = Math.random() * (window.innerHeight - 70) + "px";
+});
+
+btn.addEventListener("click", () => {
+    alert("😂 Du blev trollad!");
+});
+</script>
+
 </body>
 </html>
