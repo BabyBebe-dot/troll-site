@@ -4,122 +4,116 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🔥 Secret Challenge 🔥</title>
+<title>Secret Challenge</title>
 
 <style>
 body{
-    font-family:Arial,sans-serif;
     background:#111;
     color:white;
+    font-family:Arial;
     text-align:center;
     padding:20px;
 }
 
-#game{
-    max-width:700px;
-    margin:auto;
-}
-
-button{
-    padding:12px 24px;
-    margin:5px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-    font-size:16px;
-}
-
-input{
+button,input{
     padding:10px;
+    margin:5px;
     font-size:16px;
 }
 
 .hidden{
     display:none;
 }
-
-#secretBtn{
-    font-size:22px;
-    font-weight:bold;
-}
 </style>
 </head>
 <body>
 
-<div id="game">
-    <h1>🔥 SECRET CHALLENGE 🔥</h1>
+<h1>🔥 SECRET CHALLENGE 🔥</h1>
 
-    <h2 id="level">Level 1</h2>
+<h2 id="level">Level 1</h2>
 
-    <p id="text"></p>
+<p id="text"></p>
 
-    <div id="content"></div>
+<div id="content"></div>
 
-    <br>
+<button id="nextBtn" class="hidden">
+Nästa nivå
+</button>
 
-    <button id="nextBtn" class="hidden">
-        Nästa nivå
-    </button>
+<button onclick="adminPanel()">
+🔑 Admin Panel
+</button>
 
-    <button onclick="adminPanel()">
-        🤬 Admin Panel 🤬
-    </button>
+<div id="win" class="hidden">
+<h2>🏆 DU VANN!</h2>
 
-    <div id="win" class="hidden">
-        <h2>🏆 Du klarade alla nivåer!</h2>
-
-        <button id="secretBtn"
-        onclick="alert('🎉 SECRET UNLOCKED!')">
-            🔥 SECRET BUTTON 🔥
-        </button>
-    </div>
+<button onclick="alert('🔥 SECRET UNLOCKED!')">
+🔥 SECRET BUTTON 🔥
+</button>
 </div>
 
 <script>
 
 let level = 1;
 
-const ADMIN_CODE = "BABEBE_ADMIN_2026";
+const ADMIN_CODE =
+"BABEBE_ADMIN_2026";
 
-const levelText = document.getElementById("level");
-const text = document.getElementById("text");
-const content = document.getElementById("content");
-const nextBtn = document.getElementById("nextBtn");
+const FINAL_CODE =
+"X7mP92_Kr4k3n_817Qz_L0ck";
+
+const levelEl =
+document.getElementById("level");
+
+const textEl =
+document.getElementById("text");
+
+const contentEl =
+document.getElementById("content");
+
+const nextBtn =
+document.getElementById("nextBtn");
 
 nextBtn.onclick = () => {
-    nextBtn.classList.add("hidden");
     level++;
+    nextBtn.classList.add("hidden");
     renderLevel();
 };
 
 function adminPanel(){
 
-    let code = prompt("Admin-kod:");
+    const code =
+    prompt("Admin-kod:");
 
     if(code !== ADMIN_CODE){
-        alert("Fel kod!");
+        alert("Fel kod");
         return;
     }
 
-    let target =
-    parseInt(prompt("Vilken nivå? (1-10)"));
+    const target =
+    parseInt(
+    prompt("Nivå? (1-10 eller 666)")
+    );
 
-    if(target >= 1 && target <= 10){
+    if(
+    (target >= 1 && target <= 10)
+    || target === 666
+    ){
         level = target;
-        nextBtn.classList.add("hidden");
         renderLevel();
     }
 }
 
 function finishGame(){
 
-    levelText.innerText = "KLAR!";
-    text.innerText =
-    "Du hittade den hemliga knappen!";
+    levelEl.innerText = "KLAR!";
+    textEl.innerText =
+    "Du klarade spelet!";
 
-    content.innerHTML = "";
+    contentEl.innerHTML = "";
 
-    nextBtn.style.display = "none";
+    nextBtn.style.display =
+    "none";
 
     document
     .getElementById("win")
@@ -128,177 +122,195 @@ function finishGame(){
 
 function renderLevel(){
 
-    if(level > 10){
-        finishGame();
-        return;
-    }
-
-    levelText.innerText =
+    levelEl.innerText =
     "Level " + level;
 
-    content.innerHTML = "";
+    contentEl.innerHTML = "";
+
+    if(level === 666){
+
+        textEl.innerText =
+        "🔥 SECRET LEVEL 666 🔥";
+
+        contentEl.innerHTML =
+        `
+        <p>Skriv: Admin är bäst</p>
+        <input id="answer">
+        <button onclick="check666()">
+        OK
+        </button>
+        `;
+
+        return;
+    }
 
     switch(level){
 
         case 1:
-            text.innerText =
-            "Klicka på knappen.";
+            textEl.innerText =
+            "Klicka på knappen";
 
-            let b1 =
-            document.createElement("button");
-
-            b1.innerText = "Klicka";
-
-            b1.onclick = () =>
-            nextBtn.classList.remove("hidden");
-
-            content.appendChild(b1);
+            contentEl.innerHTML =
+            `<button onclick="unlock()">
+            Klicka
+            </button>`;
         break;
 
         case 2:
-            text.innerText =
-            "Vänta 3 sekunder.";
+            textEl.innerText =
+            "Vad är 5 + 5 ?";
 
-            setTimeout(()=>{
-                nextBtn.classList.remove("hidden");
-            },3000);
+            contentEl.innerHTML =
+            `<input id="answer">
+            <button onclick="check('10')">
+            OK
+            </button>`;
         break;
 
         case 3:
-            text.innerText =
-            "Vad är 7 + 8 ?";
+            textEl.innerText =
+            "Skriv hej";
 
-            content.innerHTML =
-            '<input id="a"><button onclick="check3()">OK</button>';
+            contentEl.innerHTML =
+            `<input id="answer">
+            <button onclick="check('hej')">
+            OK
+            </button>`;
         break;
 
         case 4:
-            text.innerText =
-            'Skriv "hemlig" baklänges';
+            textEl.innerText =
+            "Vad är 7 + 8 ?";
 
-            content.innerHTML =
-            '<input id="a"><button onclick="check4()">OK</button>';
+            contentEl.innerHTML =
+            `<input id="answer">
+            <button onclick="check('15')">
+            OK
+            </button>`;
         break;
 
         case 5:
-            text.innerText =
-            "Klicka på den gröna knappen";
+            textEl.innerText =
+            "Skriv GitHub";
 
-            content.innerHTML =
-            `
-            <button>Röd</button>
-            <button id="green">Grön</button>
-            <button>Blå</button>
-            `;
-
-            document
-            .getElementById("green")
-            .onclick = ()=>{
-                nextBtn.classList.remove("hidden");
-            };
+            contentEl.innerHTML =
+            `<input id="answer">
+            <button onclick="check('github')">
+            OK
+            </button>`;
         break;
 
         case 6:
-            text.innerText =
-            "Klicka på knappen 3 gånger";
+            textEl.innerText =
+            "Klicka 3 gånger";
 
-            let count = 0;
+            contentEl.innerHTML =
+            `<button id="multi">
+            Klicka mig
+            </button>`;
 
-            let btn =
-            document.createElement("button");
+            let c = 0;
 
-            btn.innerText = "Klicka mig";
+            document
+            .getElementById("multi")
+            .onclick = () => {
 
-            btn.onclick = ()=>{
+                c++;
 
-                count++;
-
-                btn.innerText =
-                "Klick " + count + "/3";
-
-                if(count >= 3){
-                    nextBtn.classList.remove("hidden");
+                if(c >= 3){
+                    unlock();
                 }
             };
-
-            content.appendChild(btn);
         break;
 
         case 7:
-            text.innerText =
+            textEl.innerText =
             "Vad är 12 × 12 ?";
 
-            content.innerHTML =
-            '<input id="a"><button onclick="check7()">OK</button>';
+            contentEl.innerHTML =
+            `<input id="answer">
+            <button onclick="check('144')">
+            OK
+            </button>`;
         break;
 
         case 8:
-            text.innerHTML =
+            textEl.innerText =
             "Ledtråd: 583";
 
-            content.innerHTML +=
-            '<br><input id="a"><button onclick="check8()">OK</button>';
+            contentEl.innerHTML =
+            `<input id="answer">
+            <button onclick="check('583')">
+            OK
+            </button>`;
         break;
 
         case 9:
-            text.innerText =
+            textEl.innerText =
             "Vad har nycklar men inga lås?";
 
-            content.innerHTML =
-            '<input id="a"><button onclick="check9()">OK</button>';
+            contentEl.innerHTML =
+            `<input id="answer">
+            <button onclick="check('piano')">
+            OK
+            </button>`;
         break;
 
         case 10:
-            text.innerText =
-            "Skriv den hemliga slutkoden";
+            textEl.innerText =
+            "Skriv slutkoden";
 
-            content.innerHTML =
-            '<input id="a"><button onclick="check10()">OK</button>';
+            contentEl.innerHTML =
+            `<input id="answer">
+            <button onclick="checkFinal()">
+            OK
+            </button>`;
         break;
+
+        default:
+            finishGame();
     }
 }
 
-function check3(){
-    if(document.getElementById("a").value=="15")
-        nextBtn.classList.remove("hidden");
+function unlock(){
+    nextBtn.classList.remove("hidden");
 }
 
-function check4(){
-    if(document.getElementById("a").value.toLowerCase()=="gilmeh")
-        nextBtn.classList.remove("hidden");
-}
+function check(correct){
 
-function check7(){
-    if(document.getElementById("a").value=="144")
-        nextBtn.classList.remove("hidden");
-}
+    const value =
+    document
+    .getElementById("answer")
+    .value
+    .toLowerCase();
 
-function check8(){
-    if(document.getElementById("a").value=="583")
-        nextBtn.classList.remove("hidden");
-}
-
-function check9(){
-
-    let v =
-    document.getElementById("a")
-    .value.toLowerCase();
-
-    if(v.includes("piano")){
-        nextBtn.classList.remove("hidden");
+    if(value === correct){
+        unlock();
     }
 }
 
-function check10(){
+function checkFinal(){
 
-    if(
-    document.getElementById("a").value
-    ===
-    "X7mP92_Kr4k3n_817Qz_L0ck"
-    ){
+    const value =
+    document
+    .getElementById("answer")
+    .value;
+
+    if(value === FINAL_CODE){
         finishGame();
-    }else{
-        alert("Fel kod!");
+    }
+}
+
+function check666(){
+
+    const value =
+    document
+    .getElementById("answer")
+    .value
+    .toLowerCase();
+
+    if(value === "admin är bäst"){
+        finishGame();
     }
 }
 
